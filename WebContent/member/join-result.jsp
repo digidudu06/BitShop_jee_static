@@ -11,7 +11,7 @@ String year = ssnArr[0] + ssnArr[1];
 String month = ssnArr[2] + ssnArr[3];
 String day = ssnArr[4] + ssnArr[5];
 
-String gender = request.getParameter("gender");
+String gender = "";
 switch(ssnArr[7]){
 	case "1": case"3":
 		gender = "남자";
