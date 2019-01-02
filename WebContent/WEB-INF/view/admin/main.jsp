@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<h1>관리자</h1><br />
 
 </body>
 </html>
