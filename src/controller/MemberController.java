@@ -20,23 +20,37 @@ public class MemberController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println(" 멤버 서블릿으로 들어옴 ");
-		String action = request.getParameter("action");
-		action = (action==null) ? "move" : action;
-		switch(action) {
+		String cmd = request.getParameter("cmd");
+		System.out.println("cmd : "+cmd);
+		String page = request.getParameter("page");
+		if(page==null) {page = "main";}
+		System.out.println("page : "+page);
+		String dir = request.getParameter("dir");
+		if(dir==null) {
+			String servletPath = request.getServletPath();
+			System.out.println(servletPath);
+			String arr = servletPath.substring(1,servletPath.indexOf('.'));
+			System.out.println("arr : "+arr);
+			dir=arr;
+		}
+		System.out.println("dir  :::"+dir);
+		
+		switch((cmd==null) ? "move" : cmd) {
 		case "login": 
 			System.out.println("액션이 로그인");
 			String id = request.getParameter("id");
 			String pass = request.getParameter("pass");
 			System.out.println("ID : " + id + " PASS : "+ pass);
 			if(id.equals("d") && pass.equals("dd")) {
-				Command.move(request, response, "home/main");
+				Command.move(request, response, dir+"/"+page);
+				System.out.println();
 			}else {
 				Command.move(request, response, "index");
 			}
 			break;
 		case "move" : 
 			System.out.println("액션이 이동");
-			Command.move(request, response, "member/main");
+			Command.move(request, response, dir+"/"+page);
 			break;
 		}
 	}

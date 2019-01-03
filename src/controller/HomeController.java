@@ -19,12 +19,15 @@ public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println(" Home 서블릿으로 들어옴 ");
-		String action = request.getParameter("action");
-		action = (action == null) ? "move" : action;
-		switch (action) {
+		String cmd = request.getParameter("cmd");
+		String page = request.getParameter("page");
+		page = (page==null)? "main" : "" ;
+		String dir = request.getParameter("dir");
+		dir = (dir==null) ? request.getServletPath().substring(1, request.getServletPath().indexOf('.')) : dir ;
+		switch ((cmd == null) ? "move" : cmd) {
 		case "move":
 			System.out.println("액션이 이동");
-			Command.move(request, response, "home/main");
+			Command.move(request, response, dir+"/"+page);
 			break;
 		}
 	}
