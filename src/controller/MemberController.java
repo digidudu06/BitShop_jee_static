@@ -20,11 +20,11 @@ public class MemberController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println(" 멤버 서블릿으로 들어옴 ");
-		String cmd = request.getParameter("cmd");
-		System.out.println("cmd : "+cmd);
+		
 		String page = request.getParameter("page");
 		if(page==null) {page = "main";}
-		System.out.println("page : "+page);
+		System.out.println("page : " + page);
+		
 		String dir = request.getParameter("dir");
 		if(dir==null) {
 			String servletPath = request.getServletPath();
@@ -34,23 +34,27 @@ public class MemberController extends HttpServlet {
 			dir=arr;
 		}
 		System.out.println("dir  :::"+dir);
-		
+
+		String cmd = request.getParameter("cmd");
+		System.out.println("cmd : "+cmd);
 		switch((cmd==null) ? "move" : cmd) {
 		case "login": 
 			System.out.println("액션이 로그인");
 			String id = request.getParameter("id");
 			String pass = request.getParameter("pass");
 			System.out.println("ID : " + id + " PASS : "+ pass);
-			if(id.equals("d") && pass.equals("dd")) {
-				Command.move(request, response, dir+"/"+page);
-				System.out.println();
-			}else {
-				Command.move(request, response, "index");
+			if(!(id.equals("d") && pass.equals("dd"))) {
+				dir = "";
+				page = "index";
+				System.out.println("dir "+dir+" page "+page);
 			}
+			request.setAttribute("name", "Park");
+			request.setAttribute("compo", "login-success");
+			Command.move(request, response, dir, page);
 			break;
 		case "move" : 
 			System.out.println("액션이 이동");
-			Command.move(request, response, dir+"/"+page);
+			Command.move(request, response, dir, page);
 			break;
 		}
 	}

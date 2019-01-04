@@ -20,17 +20,19 @@ public class AdminController extends HttpServlet {
   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println(" Admin 서블릿으로 들어옴 ");
-		String cmd = request.getParameter("cmd");
 		String dir = request.getParameter("dir");
 		if(dir==null) {
 			dir=request.getServletPath().substring(1, request.getServletPath().indexOf('.'));
 		}
+		
 		String page = request.getParameter("page");
-		page = (page==null) ? "main" : "" ;
+		page = (page==null) ? "main" : page ;
+		
+		String cmd = request.getParameter("cmd");
 		switch ((cmd == null) ? "move" : cmd) {
 		case "move":
 			System.out.println("액션이 이동");
-			Command.move(request, response, dir+"/"+page);
+			Command.move(request, response, dir, page);
 			break;
 		}
 	}

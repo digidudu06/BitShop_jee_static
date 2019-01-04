@@ -9,10 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import pool.Constant;
 
 public class Command {
-	public static void move(HttpServletRequest request, HttpServletResponse response, String path) throws ServletException, IOException {
-		request.getRequestDispatcher((path.equals("index")) 
-				? "/index" + Constant.JSP : Constant.VIEW + path + Constant.JSP).
-		forward(request, response);
+	public static void move(HttpServletRequest request, HttpServletResponse response, String dir, String page) throws ServletException, IOException {
+		request.getRequestDispatcher(
+				(page.equals("index")) ? "index"+Constant.JSP : Constant.VIEW + dir+"/"+page + Constant.JSP)
+				.forward(request, response);
+		
+		System.out.println(Constant.VIEW + dir+"/"+page + Constant.JSP);
+
+		/*String dispatcher = Constant.VIEW + dir+"/"+page + Constant.JSP;
+		dispatcher = (page.equals("index")) ? "index"+Constant.JSP : dispatcher ;
+		request.getRequestDispatcher(dispatcher).forward(request, response);*/
 	}
 
 }
