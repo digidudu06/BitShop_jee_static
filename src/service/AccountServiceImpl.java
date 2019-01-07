@@ -51,7 +51,7 @@ public class AccountServiceImpl implements AccountService {
 	public AccountBean findByAccount(String accountNum) {
 		AccountBean account = new AccountBean();
 		for(int i=0; i<list.size(); i++) {
-			if(list.get(i).getAccountNum().equals(accountNum)) {
+			if(accountNum.equals(list.get(i).getAccountNum())) { //기준점이 왼쪽에 오는 것이 좋음
 				account = list.get(i);
 			}
 		}

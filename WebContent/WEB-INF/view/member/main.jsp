@@ -18,6 +18,16 @@
 			<%@ include file="side-menu.jsp" %>
 		</td>
 		<td>
+			<%
+			String dest = request.getAttribute("dest")+"";
+			switch(dest){
+			case "NONE": 
+				%><%@ include file="myPage.jsp" %><%
+				break;
+			case "join-form":
+				%><%@ include file="join-form.jsp" %><%
+				break;
+			} %>
 		</td>
 	</tr>
 	<tr>

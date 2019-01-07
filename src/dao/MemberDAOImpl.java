@@ -1,31 +1,31 @@
-package service;
+package dao;
 
 import java.util.ArrayList;
 
 import domain.MemberBean;
 
-public class MemberServiceImpl implements MemberService{
+public class MemberDAOImpl implements MemberDAO {
 
 	@Override
-	public void join(String name, String id, String pass, String ssn) {
+	public void createMember(String name, String id, String pass, String ssn) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public ArrayList<MemberBean> findAll() {
+	public ArrayList<MemberBean> selectMembers() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<MemberBean> findByName(String name) {
+	public ArrayList<MemberBean> selectByName(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public MemberBean findById(String id) {
+	public MemberBean selectById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -34,12 +34,6 @@ public class MemberServiceImpl implements MemberService{
 	public int countMembers() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	@Override
-	public boolean login(String id, String pass) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override

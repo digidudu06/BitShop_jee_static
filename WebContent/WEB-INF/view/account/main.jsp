@@ -24,7 +24,18 @@
 			<%@ include file="side-menu.jsp" %>
 		</td>
 		<td>
-			<%@ include file="open-form.jsp" %>
+		<%String dest = request.getAttribute("dest")+"";
+		switch(dest){
+		case "NONE": 
+			%><%@ include file="firstPage.jsp" %><%
+			break;
+		case "open-form": 
+			%><%@ include file="open-form.jsp" %><%
+			break;
+		case "open-result": 
+			%><%@ include file="open-result.jsp" %><%
+			break;
+		} %>
 		</td>
 	</tr>
 	<tr>
