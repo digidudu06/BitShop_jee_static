@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,10 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.Command;
+import domain.AccountBean;
+import service.AccountService;
+import service.AccountServiceImpl;
 
-/**
- * Servlet implementation class AccountController
- */
 @WebServlet("/account.do")
 public class AccountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -24,6 +23,7 @@ public class AccountController extends HttpServlet {
 		cmd = (cmd == null) ? "move" : cmd ;
 		
 		String dir = request.getParameter("dir");
+		AccountService accountService = new AccountServiceImpl();
 		if(dir==null) {
 			dir = request.getServletPath().substring(1, request.getServletPath().indexOf('.'));
 		}
@@ -34,6 +34,10 @@ public class AccountController extends HttpServlet {
 		switch (cmd) {
 		case "open-account": 
 			String money = request.getParameter("money");
+			AccountBean account = new AccountBean();
+			String accountNum = accountService.openAccount(Integer.parseInt(money));
+			account = accountService.findByAccount(accountNum);
+			request.setAttribute("openAccount", account );
 			Command.move(request, response, dir, page);
 			break;
 		case "move":
