@@ -1,33 +1,25 @@
 package service;
 
-import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
+import com.sun.javafx.geom.transform.GeneralTransform3D;
+
+import dao.AccountDAOImpl;
 import domain.AccountBean;
 
 public class AccountServiceImpl implements AccountService {
-	private ArrayList<AccountBean> list;
-	public AccountServiceImpl() {
-		list = new ArrayList<>();
-	}
+	private static AccountServiceImpl instance = new AccountServiceImpl();
+	private AccountServiceImpl() {}
+	public static AccountServiceImpl getInstance() {
+		return instance;
+		}
 
 	@Override
-	public String openAccount(int money) {
-		String createAccountNum = "";
-		Random random = new Random();
-		createAccountNum = random.nextInt(9000)+1000+"-";
-		for(int i=0; i<4; i++) {
-			createAccountNum += random.nextInt(10);
-		}
-		
-		AccountBean account = new AccountBean();
-		account.setAccountNum(createAccountNum);
-		account.setMoney(money);
-		account.setToday(today());
-		list.add(account);
-		return createAccountNum;
+	public void openAccount(AccountBean account) {
+		AccountDAOImpl.getInstance().insertAccount(account);
 	}
 
 	@Override
@@ -50,11 +42,11 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public AccountBean findByAccount(String accountNum) {
 		AccountBean account = new AccountBean();
-		for(int i=0; i<list.size(); i++) {
+		/*for(int i=0; i<list.size(); i++) {
 			if(accountNum.equals(list.get(i).getAccountNum())) { //기준점이 왼쪽에 오는 것이 좋음
 				account = list.get(i);
 			}
-		}
+		}*/
 		return account;
 	}
 

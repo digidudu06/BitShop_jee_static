@@ -23,7 +23,6 @@ public class AccountController extends HttpServlet {
 		cmd = (cmd == null) ? "move" : cmd ;
 		
 		String dir = request.getParameter("dir");
-		AccountService accountService = new AccountServiceImpl();
 		if(dir==null) {
 			dir = request.getServletPath().substring(1, request.getServletPath().indexOf('.'));
 		}
@@ -36,9 +35,14 @@ public class AccountController extends HttpServlet {
 			System.out.println("cmd : "+cmd+" dir : "+dir+" page : "+page);
 			String money = request.getParameter("money");
 			AccountBean account = new AccountBean();
-			String accountNum = accountService.openAccount(Integer.parseInt(money));
+			account.setAccountNum(AccountServiceImpl.getInstance().createAccountNum());
+			account.setMoney(Integer.parseInt(money));
+			account.setToday(AccountServiceImpl.getInstance().today());
+			AccountServiceImpl.getInstance().openAccount(account);
+			/*String accountNum = accountService.openAccount(Integer.parseInt(money));
 			account = accountService.findByAccount(accountNum);
-			request.setAttribute("openAccount", account );
+			request.setAttribute("openAccount", account );*/
+			request.setAttribute("account", AccountServiceImpl.getInstance().findByAccount(account.getAccountNum()));
 			request.setAttribute("dest", request.getParameter("dest"));
 			Command.move(request, response, dir, page);
 			break;

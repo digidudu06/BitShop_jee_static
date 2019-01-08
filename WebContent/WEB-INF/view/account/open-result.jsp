@@ -4,10 +4,10 @@
 
 <div id="open-result">
 	<%
-	AccountBean openAccount = (AccountBean)request.getAttribute("openAccount");
-	String accNum = openAccount.getAccountNum();
-	String money = Integer.toString(openAccount.getMoney());
-	String today = openAccount.getToday();
+	AccountBean account = (AccountBean)request.getAttribute("account");
+	String accNum = account.getAccountNum();
+	String money = Integer.toString(account.getMoney());
+	String today = account.getToday();
 	%>
 	<h2>성공적으로 개설 되었습니다</h2>
 	<h4>계좌번호 : <%= accNum %></h4>

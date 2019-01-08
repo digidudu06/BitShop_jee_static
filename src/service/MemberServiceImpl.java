@@ -2,15 +2,20 @@ package service;
 
 import java.util.ArrayList;
 
+import dao.MemberDAOImpl;
 import domain.MemberBean;
 
 public class MemberServiceImpl implements MemberService{
+	//Controller와 연결해줌 
+	private static MemberServiceImpl instance = new MemberServiceImpl();
+	private  MemberServiceImpl() {}
+	public static MemberServiceImpl getInstance() {return instance;}
 
 	@Override
-	public void join(String name, String id, String pass, String ssn) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void joinMember(MemberBean member) {
+		System.out.println("멤버 서비스 조인에 진입");
+		MemberDAOImpl.getInstance().insertMember(member);
+		}
 
 	@Override
 	public ArrayList<MemberBean> findAll() {
@@ -23,11 +28,19 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+//은지씨... 넘나 어려워여..... 
+//은지씨 왜케 어렵져....  
 
 	@Override
 	public MemberBean findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		MemberBean member = new MemberBean();
+		/*for(int i=0;;) {
+			if() {
+				
+			}
+		}*/
+		return member;
 	}
 
 	@Override

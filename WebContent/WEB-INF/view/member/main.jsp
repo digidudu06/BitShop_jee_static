@@ -15,13 +15,19 @@
 	</tr>
 	<tr  style="height: 300px">
 		<td id="side-menu">
-			<%@ include file="side-menu.jsp" %>
+			<%
+			String dest = request.getAttribute("dest")+"";
+			if(dest.equals("join-form")){
+				%><%@ include file="side-join.jsp" %><%
+			}else{
+				%><%@ include file="side-menu.jsp" %><%
+			}
+			%>
 		</td>
 		<td>
 			<%
-			String dest = request.getAttribute("dest")+"";
 			switch(dest){
-			case "NONE": 
+			case "NONE": case "myPage": 
 				%><%@ include file="myPage.jsp" %><%
 				break;
 			case "join-form":
