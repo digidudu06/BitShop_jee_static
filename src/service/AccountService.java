@@ -8,14 +8,14 @@ public interface AccountService {
 	public void openAccount(AccountBean account);
 	public String createAccountNum();
 	
-	public ArrayList<AccountBean> findAll();
-	public AccountBean findByAccount(String accountNum);
+	public ArrayList<AccountBean> findAllAccont();
+	public AccountBean findAccountByAccountNum(String accountNum);
 	public int countAccountNum();
 	public boolean existAccountNum(String accountNum);
 	public String today();
 	
-	public void deposit(String account, int money);
-	public void withdraw(String account, int money);
+	public void deposit(String accountNum, int money);
+	public void withdraw(String accountNum, int money);
 	
 	public void deleteAccount(String accountNum);
 

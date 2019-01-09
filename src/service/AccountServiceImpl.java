@@ -12,14 +12,17 @@ import domain.AccountBean;
 
 public class AccountServiceImpl implements AccountService {
 	private static AccountServiceImpl instance = new AccountServiceImpl();
-	private AccountServiceImpl() {}
-	public static AccountServiceImpl getInstance() {
-		return instance;
-		}
+	public AccountDAOImpl dao;
+	private ArrayList<AccountBean> list;
+	private AccountServiceImpl() {
+		dao = AccountDAOImpl.getInstance();
+		list = new ArrayList<>();
+	}
+	public static AccountServiceImpl getInstance() {return instance;}
 
 	@Override
 	public void openAccount(AccountBean account) {
-		AccountDAOImpl.getInstance().insertAccount(account);
+		dao.insertAccount(account);
 	}
 
 	@Override
@@ -34,31 +37,23 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public ArrayList<AccountBean> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<AccountBean> findAllAccont() {
+		return dao.selectAllAccont();
 	}
 
 	@Override
-	public AccountBean findByAccount(String accountNum) {
+	public AccountBean findAccountByAccountNum(String accountNum) {
 		AccountBean account = new AccountBean();
-		/*for(int i=0; i<list.size(); i++) {
-			if(accountNum.equals(list.get(i).getAccountNum())) { //기준점이 왼쪽에 오는 것이 좋음
-				account = list.get(i);
-			}
-		}*/
 		return account;
 	}
 
 	@Override
 	public int countAccountNum() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public boolean existAccountNum(String accountNum) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -71,19 +66,16 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public void deposit(String accountNum, int money) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void withdraw(String accountNum, int money) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void deleteAccount(String accountNum) {
-		// TODO Auto-generated method stub
 		
 	}
 

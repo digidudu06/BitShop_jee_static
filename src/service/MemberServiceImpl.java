@@ -8,44 +8,43 @@ import domain.MemberBean;
 public class MemberServiceImpl implements MemberService{
 	//Controller와 연결해줌 
 	private static MemberServiceImpl instance = new MemberServiceImpl();
-	private  MemberServiceImpl() {}
+	public MemberDAOImpl dao;
+	
+	private  MemberServiceImpl() {
+		 dao = MemberDAOImpl.getInstance();	//코드가 길어지므로 짧게 하기 위해 //한번만 사용할 경우에는 성능에 차이가 없다.
+	}
 	public static MemberServiceImpl getInstance() {return instance;}
-
+	
 	@Override
-	public void joinMember(MemberBean member) {
+	public void createMember(MemberBean member) {
 		System.out.println("멤버 서비스 조인에 진입");
-		MemberDAOImpl.getInstance().insertMember(member);
-		}
-
-	@Override
-	public ArrayList<MemberBean> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		dao.insertMember(member);
 	}
 
 	@Override
-	public ArrayList<MemberBean> findByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<MemberBean> findAllMembers() {
+		return dao.selectAllMembers();
+	}
+
+	@Override
+	public ArrayList<MemberBean> findMembersByName(String name) {
+		return dao.selectMembersByName(name);
 	}
 	
 //은지씨... 넘나 어려워여..... 
 //은지씨 왜케 어렵져....  
+//은영언니 github에 박제
 
 	@Override
-	public MemberBean findById(String id) {
+	public MemberBean findMemberById(String id) {
 		MemberBean member = new MemberBean();
-		/*for(int i=0;;) {
-			if() {
-				
-			}
-		}*/
+		member = dao.selectMemberById(id);
 		return member;
 	}
 
 	@Override
 	public int countMembers() {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
@@ -56,13 +55,13 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void updatePass(String id, String pass, String newPass) {
+	public void modifyMember(MemberBean member) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void deleteMember(String id, String pass) {
+	public void removeMember(String id, String pass) {
 		// TODO Auto-generated method stub
 		
 	}
