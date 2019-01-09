@@ -29,19 +29,12 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public void insertMember(MemberBean member) {
 		try {
-			conn = DatabaseFactory.createDatabase("oracle").getConnection();
-			stmt = conn.createStatement();
-			String sql = String.format(
-					"INSERT INTO member(id, name, pass, ssn)\r\n" + 
-					"VALUES('%s', '%s', '%s', '%s')",
-					member.getId(), member.getName(), member.getPass(), member.getSsn());
-			System.out.println("SQL ::: "+sql);
 //			rs = stmt.executeQuery(sql);	//select에서 사용
-			if(stmt.executeUpdate(sql)==1){	//insert...에서 사용
-				System.out.println("회원가입 성공");
-			}else {
-				System.out.println("회원가입 실패");
-			}
+			DatabaseFactory.createDatabase("oracle").getConnection()
+				.createStatement().executeUpdate(
+						String.format("INSERT INTO member(id, name, pass, ssn)\r\n" + 
+							"VALUES('%s', '%s', '%s', '%s')",
+								member.getId(), member.getName(), member.getPass(), member.getSsn()));	//insert...에서 사용
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
