@@ -29,23 +29,24 @@
 								<table id="login-inner-tab">
 									<tr>
 										<td><input id="userid-input" name="id"
-											type="text" value="d" placeholder="ID" tabindex="1" /></td>
+											type="text" placeholder="ID" tabindex="1" /></td>
 										<td rowspan="2">
 											<button id="login-btn">LOGIN</button>
 										</td>
 									</tr>
 									<tr>
 										<td><input id="password-input" name="pass"
-											type="password" value="dd" placeholder="PASSWORD"
+											type="password" placeholder="PASSWORD"
 											tabindex="2" /> 
 											<input type="hidden" name="cmd" value="login" />
 											<input type="hidden" name="dir" value="home"/>
+											<input type="hidden" name="dest" value="welcome"/>
 										</td>
 									</tr>
 								</table>
 							</form>
 							<a id="admin-link" href="#">관리자</a>
-							<a id="join-link" href="member.do?dset=join-form">회원가입</a>
+							<a id="join-link" href="member.do?dest=join-form">회원가입</a>
 						</td>
 					</tr>
 				</table>

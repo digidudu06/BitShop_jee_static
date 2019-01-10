@@ -27,7 +27,7 @@
 		<td>
 			<%
 			switch(dest){
-			case "NONE": case "myPage": 
+			case "NONE": case "myPage":
 				%><%@ include file="myPage.jsp" %><%
 				break;
 			case "join-form":

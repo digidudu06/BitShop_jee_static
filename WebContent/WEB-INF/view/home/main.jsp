@@ -20,10 +20,10 @@
 		<td>
 			<div id="content">
 				<%
-				String compo = request.getAttribute("compo")+""; //.toString 이어도 된다.
-					switch(compo){
-					case "login-success":
-						%><%@ include file="login-success.jsp"%><%
+				String dest = request.getAttribute("dest")+""; //.toString 이어도 된다.
+					switch(dest){
+					case "welcome":
+						%><%@ include file="welcome.jsp"%><%
 						break;
 					}
 				%>

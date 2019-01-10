@@ -26,8 +26,8 @@
 		<td>
 		<%String dest = request.getAttribute("dest")+"";
 		switch(dest){
-		case "NONE": 
-			%><%@ include file="firstPage.jsp" %><%
+		case "NONE": case "account-detail":
+			%><%@ include file="account-detail.jsp" %><%
 			break;
 		case "open-form": 
 			%><%@ include file="open-form.jsp" %><%

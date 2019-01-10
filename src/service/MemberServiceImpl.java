@@ -30,16 +30,10 @@ public class MemberServiceImpl implements MemberService{
 	public ArrayList<MemberBean> findMembersByName(String name) {
 		return dao.selectMembersByName(name);
 	}
-	
-//은지씨... 넘나 어려워여..... 
-//은지씨 왜케 어렵져....  
-//은영언니 github에 박제
 
 	@Override
 	public MemberBean findMemberById(String id) {
-		MemberBean member = new MemberBean();
-		member = dao.selectMemberById(id);
-		return member;
+		return dao.selectMemberById(id);
 	}
 
 	@Override
@@ -49,20 +43,22 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public boolean login(String id, String pass) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean existMember(String id, String pass) {
+		boolean ok = false;
+		MemberBean member = dao.selectMemberById(id);
+		if(member != null && id.equals(member.getId()) && pass.equals(member.getPass())){
+			ok=true;
+		}
+		return ok;
 	}
 
 	@Override
 	public void modifyMember(MemberBean member) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void removeMember(String id, String pass) {
-		// TODO Auto-generated method stub
 		
 	}
 

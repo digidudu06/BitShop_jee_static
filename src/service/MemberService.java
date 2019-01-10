@@ -11,7 +11,7 @@ public interface MemberService {
 	public ArrayList<MemberBean> findMembersByName(String name);
 	public MemberBean findMemberById(String id);
 	public int countMembers();
-	public boolean login(String id, String pass);
+	public boolean existMember(String id, String pass);
 	
 	public void modifyMember(MemberBean member);
 	

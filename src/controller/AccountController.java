@@ -30,6 +30,9 @@ public class AccountController extends HttpServlet {
 		String page = request.getParameter("page");
 		page = (page==null) ? "main" : page ;
 		
+		String dest = request.getParameter("dest");
+		dest = (dest==null) ? "NONE" : dest ;
+		
 		switch (cmd) {
 		case "open-account": 
 			System.out.println("cmd : "+cmd+" dir : "+dir+" page : "+page);
@@ -41,21 +44,18 @@ public class AccountController extends HttpServlet {
 			account.setToday(AccountServiceImpl.getInstance().today());
 			AccountServiceImpl.getInstance().openAccount(account);
 			
-			request.setAttribute("account", AccountServiceImpl.getInstance().findAccountByAccountNum(account.getAccountNum()));
-			request.setAttribute("dest", request.getParameter("dest"));
-			
+//			request.setAttribute("account", AccountServiceImpl.getInstance().findAccountById());
+			request.setAttribute("dest", dest);
 			Command.move(request, response, dir, page);
 			break;
 		case "move":
 			System.out.println("액션이 이동");
+			System.out.println("move &&&&& dest : "+dest);
 			
-			String dest = request.getParameter("dest");
-			dest = (dest==null) ? "NONE" : dest ;
-			System.out.println("dest : "+dest);
 			request.setAttribute("dest", dest);
-			
 			Command.move(request, response, dir, page);
 			break;
+		case "account-detail": break;
 		}
 	}
 

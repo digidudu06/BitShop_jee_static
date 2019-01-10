@@ -42,7 +42,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public AccountBean findAccountByAccountNum(String accountNum) {
+	public AccountBean findAccountById(String id) {
 		AccountBean account = new AccountBean();
 		return account;
 	}
