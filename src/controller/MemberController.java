@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.Command;
 import domain.MemberBean;
@@ -20,11 +21,11 @@ public class MemberController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MemberBean member = null;
 		System.out.println(" 멤버 서블릿으로 들어옴 ");
-		
+		//====================================================================	page
 		String page = request.getParameter("page");
 		if(page==null) {page = "main";}
 		System.out.println("page : " + page);
-		
+		//====================================================================	dir
 		String dir = request.getParameter("dir");
 		if(dir==null) {
 			String servletPath = request.getServletPath();
@@ -32,18 +33,21 @@ public class MemberController extends HttpServlet {
 			dir=arr;
 		}
 		System.out.println("dir  :::"+dir);
-		
+		//====================================================================	dest
 		String dest = request.getParameter("dest");
 		dest = (dest==null) ? "NONE" : dest ;
-		
+		//====================================================================	session
+		HttpSession session = request.getSession();
+		//====================================================================	cmd
 		String cmd = request.getParameter("cmd");
 		System.out.println("cmd : "+cmd);
 		switch((cmd==null) ? "move" : cmd) {
-		case "login": 
+		case "login": //------------------------------------------------------	login
 			System.out.println("액션이 로그인");
 			String id = request.getParameter("id");
 			String pass = request.getParameter("pass");
 			System.out.println("ID : " + id + " PASS : "+ pass);
+			
 			if(!(MemberServiceImpl.getInstance().existMember(id, pass))) {
 				System.out.println("로그인 실패");
 				dir = "";
@@ -52,15 +56,15 @@ public class MemberController extends HttpServlet {
 			}else {
 				System.out.println("로그인 성공");
 				member = MemberServiceImpl.getInstance().findMemberById(id);
-				request.setAttribute("member", member);
+				session.setAttribute("user", member);
 				request.setAttribute("dest", dest);
 			}
 			break;
-		case "move": 
+		case "move": //--------------------------------------------------------	move
 			System.out.println("액션이 이동");
 			request.setAttribute("dest",dest);
 			break;
-		case "join": 
+		case "join": //--------------------------------------------------------	join
 			System.out.println("액션이 조인");
 			member = new MemberBean();
 			member.setName(request.getParameter("name"));
@@ -69,21 +73,25 @@ public class MemberController extends HttpServlet {
 			member.setSsn(request.getParameter("ssn"));
 			MemberServiceImpl.getInstance().createMember(member);
 			
-			member = MemberServiceImpl.getInstance().findMemberById(member.getId());
-			request.setAttribute("member", member);
 			request.setAttribute("dest",dest);
 			break;
-		case "logout":
+		case "logout": //------------------------------------------------------	logout
 			dir = "";
 			page = "index";
 			dest= "";
+			session.invalidate();	//로그인 시 생성된 세션 제거
+			break;
+		case "detail": //------------------------------------------------------ detail
+			request.setAttribute("dest", dest);
+			break;
+		case "update": //------------------------------------------------------ update
+			request.setAttribute("dest", dest);
 			break;
 		}
 		Command.move(request, response, dir, page);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
